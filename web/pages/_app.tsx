@@ -32,6 +32,8 @@ const mainFont = Readex_Pro({
   variable: '--font-main',
   subsets: ['latin-ext'],
 })
+import Script from 'next/script'
+import { GoogleOneTapSetup } from 'web/lib/firebase/google-onetap-login'
 
 function firstLine(msg: string) {
   return msg.replace(/\r?\n.*/s, '')
@@ -143,6 +145,7 @@ function MyApp({ Component, pageProps }: AppProps<ManifoldPageProps>) {
         src="https://analytics.umami.is/script.js"
         data-website-id="ee5d6afd-5009-405b-a69f-04e3e4e3a685"
       />
+      <GoogleOneTapSetup />
     </>
   )
 }

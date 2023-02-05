@@ -60,6 +60,8 @@ import Custom404 from '../404'
 import ContractEmbedPage from '../embed/[username]/[contractSlug]'
 import { getContractParams } from 'web/lib/contracts'
 import { scrollIntoViewCentered } from 'web/lib/util/scroll'
+import { getTotalContractMetrics } from 'web/lib/supabase/contract-metrics'
+import { GoogleOneTapLogin } from 'web/lib/firebase/google-onetap-login'
 
 export const CONTRACT_BET_FILTER: BetFilter = {
   filterRedemptions: true,
