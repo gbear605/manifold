@@ -7,6 +7,7 @@ import { loadPaginated, log } from 'shared/utils'
 import { removeUndefinedProps } from 'common/util/object'
 import { DAY_MS, HOUR_MS } from 'common/util/time'
 import {
+  SupabaseDirectClient,
   createSupabaseClient,
   createSupabaseDirectClient,
 } from 'shared/supabase/init'
@@ -26,6 +27,19 @@ export const scoreContracts = functions
     await scoreContractsInternal()
   })
 const firestore = admin.firestore()
+
+const getContractTraders = async (pg: SupabaseDirectClient, since: number) => {
+  return Object.fromEntries(
+    await pg.map(
+      `select contract_id, count(distinct data->>'userId') as n
+      from contract_bets
+      where (to_jsonb(data)->>'createdTime') >= $2::text
+      group by contract_id`,
+      [since],
+      (r) => [r.contract_id as string, r.n as number]
+    )
+  )
+}
 
 export async function scoreContractsInternal() {
   const now = Date.now()
@@ -59,14 +73,16 @@ export async function scoreContractsInternal() {
 
   const todayLikesByContract = await getRecentContractLikes(db, dayAgo)
   const thisWeekLikesByContract = await getRecentContractLikes(db, weekAgo)
+  const todayTradersByContract = await getContractTraders(pg, dayAgo)
+  const thisWeekTradersByContract = await getContractTraders(pg, weekAgo)
 
   for (const contract of contracts) {
     const todayScore =
       (todayLikesByContract[contract.id] ?? 0) +
-      (contract.uniqueBettors24Hours ?? 0)
+      (todayTradersByContract[contract.id] ?? 0)
     const thisWeekScore =
       (thisWeekLikesByContract[contract.id] ?? 0) +
-      (contract.uniqueBettors7Days ?? 0)
+      (thisWeekTradersByContract[contract.id] ?? 0)
 
     const popularityScore = todayScore + thisWeekScore / 10
     const freshnessScore = 1 + Math.log(1 + popularityScore)
