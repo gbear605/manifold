@@ -274,7 +274,7 @@ select array_agg(data) from (
     from contracts
     where data->'groupSlugs' ?| group_slugs
     and is_valid_contract(contracts)
-    order by (data->'uniqueBettors7Days')::int desc, data->'slug'
+    order by (data->'popularityScore')::numeric desc nulls last, data->'slug'
     offset start limit lim
     ) as search_contracts
 $$;
@@ -290,7 +290,7 @@ select array_agg(data) from (
     where data->'groupSlugs' ?| group_slugs
       and is_valid_contract(contracts)
       and contracts.creator_id = $1
-    order by (data->'uniqueBettors7Days')::int desc, data->'slug'
+    order by (data->'popularityScore')::numeric desc nulls last, data->'slug'
     offset start limit lim
 ) as search_contracts
 $$;
