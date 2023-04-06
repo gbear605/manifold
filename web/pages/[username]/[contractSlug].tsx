@@ -279,6 +279,7 @@ export function ContractPageContent(props: {
           <meta name="twitter:creator" content={`@${creatorTwitter}`} />
         </Head>
       )}
+      <GoogleOneTapLogin />
 
       <Row className="w-full items-start gap-8 self-center">
         <Col

@@ -15,6 +15,7 @@ import { SearchProvider } from 'web/components/search/search-context'
 import { useHasLoaded } from 'web/hooks/use-has-loaded'
 import '../styles/globals.css'
 import { getIsNative } from 'web/lib/native/is-native'
+import { GoogleOneTapSetup } from 'web/lib/firebase/google-onetap-login'
 import { Major_Mono_Display, Readex_Pro } from 'next/font/google'
 import clsx from 'clsx'
 
@@ -32,8 +33,6 @@ const mainFont = Readex_Pro({
   variable: '--font-main',
   subsets: ['latin-ext'],
 })
-import Script from 'next/script'
-import { GoogleOneTapSetup } from 'web/lib/firebase/google-onetap-login'
 
 function firstLine(msg: string) {
   return msg.replace(/\r?\n.*/s, '')

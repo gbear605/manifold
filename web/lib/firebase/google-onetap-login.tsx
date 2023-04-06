@@ -17,29 +17,29 @@ async function handleResponse(response: any) {
   }
 }
 
-const initGSI = () => {
-  ;(window as any).google.accounts.id.initialize({
-    client_id:
-      '128925704902-bpcbnlp2gt73au3rrjjtnup6cskr89p0.apps.googleusercontent.com',
-    context: 'signin',
-    callback: handleResponse,
-    prompt_parent_id: 'signup-prompt',
-    auto_select: true,
-    close_on_tap_outside: false,
-    itp_support: true,
-  })
-  ;(window as any).google.accounts.id.prompt()
-  console.log('promptinggg')
-}
+// const initGSI = () => {
+//   ;(window as any).google.accounts.id.initialize({
+//     client_id:
+//       '128925704902-bpcbnlp2gt73au3rrjjtnup6cskr89p0.apps.googleusercontent.com',
+//     context: 'signin',
+//     callback: handleResponse,
+//     // prompt_parent_id: 'signup-prompt',
+//     auto_select: true,
+//     close_on_tap_outside: false,
+//     itp_support: true,
+//   })
+//   ;(window as any).google.accounts.id.prompt()
+//   console.log('promptinggg')
+// }
 
 export const GoogleOneTapSetup = () => {
-  const user = useUser()
-
-  useEffect(() => {
-    if (user === null) {
-      setTimeout(() => initGSI(), 1000)
-    }
-  }, [user])
+  // const user = useUser()
+  //
+  // useEffect(() => {
+  //   if (user === null) {
+  //     setTimeout(() => initGSI(), 1000)
+  //   }
+  // }, [user])
 
   return <Script src="https://accounts.google.com/gsi/client" />
 }
@@ -47,16 +47,16 @@ export const GoogleOneTapSetup = () => {
 export const GoogleOneTapLogin = () => {
   return (
     <>
-      <div id="signup-prompt" className="h-48 w-full bg-gray-300" />
-      {/* <div
+      {/* <div id="signup-prompt" className="h-20 w-12 bg-gray-500" /> */}
+      <div
         id="g_id_onload"
         data-client_id="128925704902-bpcbnlp2gt73au3rrjjtnup6cskr89p0.apps.googleusercontent.com"
         data-context="signin"
         data-callback="callback"
-        data-auto_select="true"
-        data-close_on_tap_outside="false"
-        data-itp_support="true"
-      ></div> */}
+        // data-auto_select="true"
+        data-cancel_on_tap_outside="false"
+        data-itp_support="false"
+      ></div>
     </>
   )
 }
