@@ -279,7 +279,6 @@ export function ContractPageContent(props: {
           <meta name="twitter:creator" content={`@${creatorTwitter}`} />
         </Head>
       )}
-      <GoogleOneTapLogin />
 
       <Row className="w-full items-start gap-8 self-center">
         <Col
@@ -295,6 +294,8 @@ export function ContractPageContent(props: {
               !coverImageUrl ? 'bg-canvas-100 top-0' : 'top-[-92px] h-[140px]'
             )}
           >
+            {/* <GoogleOneTapLogin className="absolute right-2 -bottom-12 z-[1000] hidden lg:block" /> */}
+
             {coverImageUrl && (
               <div className="absolute bottom-0 left-0 right-0 -top-10 -z-10">
                 <Image

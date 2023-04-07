@@ -26,6 +26,7 @@ import { CreateQuestionButton } from 'web/components/buttons/create-question-but
 import NotificationsIcon from 'web/components/notifications-icon'
 import { DarkModeContext, useIsDarkMode } from 'web/hooks/dark-mode-context'
 import { useUser } from 'web/hooks/use-user'
+import { GoogleOneTapLogin } from 'web/lib/firebase/google-onetap-login'
 import { firebaseLogout } from 'web/lib/firebase/users'
 import TrophyIcon from 'web/lib/icons/trophy-icon'
 import { withTracking } from 'web/lib/service/analytics'
@@ -94,6 +95,8 @@ export default function Sidebar(props: {
         />
 
         {user === null && <SignInButton />}
+
+        <GoogleOneTapLogin className="fixed top-1/2 left-2 z-[1000] hidden lg:block" />
 
         {createMarketButton}
       </div>
